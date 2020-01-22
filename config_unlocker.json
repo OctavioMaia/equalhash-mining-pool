@@ -70,13 +70,13 @@
 	"upstreamCheckInterval": "5s",
 	"upstream": [
 		{
-			"name": "mumbai",
-			"url": "http://10.4.1.13:8002",
+			"name": "main",
+			"url": "http://127.0.0.1:8545",
 			"timeout": "10s"
 		},
 		{
 			"name": "backup",
-			"url": "http://10.4.1.11:8646",
+			"url": "http://127.0.0.2:8545",
 			"timeout": "10s"
 		}
 	],
