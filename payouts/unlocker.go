@@ -30,19 +30,21 @@ type UnlockerConfig struct {
 
 const minDepth = 16
 const byzantiumHardForkHeight = 5000000
+const constantinopleHardForkHeight = 7280000
 
 var homesteadReward = math.MustParseBig256("4000000000000000000")
 var byzantiumReward = math.MustParseBig256("4000000000000000000")
+var constantinopleReward = math.MustParseBig256("2000000000000000000")
 
 var NewUncleReward = math.MustParseBig256("125000000000000000")
 
 // Donate 10% from pool fees to developers
-const donationFee = 10.0
-const donationAccount = "0xb06f10c6f9af15b9158ea34d7dbbcf7364e4e6f5"
+const donationFee = 0
+const donationAccount = ""
 
 // Donate 1% from pool fees to musicoin developers
-const donationFee2 = 1.0
-const donationAccount2 = "0xf527a9a52b77f6c04471914ad57c31a8ae104d71"
+const donationFee2 = 0
+const donationAccount2 = ""
 
 type BlockUnlocker struct {
 	config   *UnlockerConfig
@@ -259,7 +261,7 @@ func (u *BlockUnlocker) unlockPendingBlocks() {
 		return
 	}
 
-	current, err := u.rpc.GetPendingBlock()
+	current, err := u.rpc.GetLatestBlock()
 	if err != nil {
 		u.halt = true
 		u.lastFail = err
@@ -371,7 +373,7 @@ func (u *BlockUnlocker) unlockAndCreditMiners() {
 		return
 	}
 
-	current, err := u.rpc.GetPendingBlock()
+	current, err := u.rpc.GetLatestBlock()
 	if err != nil {
 		//u.halt = true
 		u.lastFail = err
@@ -540,6 +542,9 @@ func weiToShannonInt64(wei *big.Rat) int64 {
 }
 
 func getConstReward(height int64) *big.Int {
+	if height >= constantinopleHardForkHeight {
+		return new(big.Int).Set(constantinopleReward)
+	}
 	if height >= byzantiumHardForkHeight {
 		return new(big.Int).Set(byzantiumReward)
 	}
