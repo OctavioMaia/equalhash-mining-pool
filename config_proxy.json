@@ -93,22 +93,22 @@
 	],
 
 	"redis": {
-		"endpoint": "10.4.10.100:6379",
+		"endpoint": "127.0.0.1:6379",
 		"poolSize": 300,
 		"database": 9,
-		"password": "9B3D8aD6705d246C82dBaA0DC10D2C7Ce47115Af"
+		"password": ""
 	},
 
 	"unlocker": {
 		"enabled": false,
 		"poolFee": 0.5,
-		"poolFeeAddress": "0xbb75ee50115dfbba5d7b1fb1563c5dfd74dd1279",
+		"poolFeeAddress": "0x3d5158949c0cbc060ac102a0ee0df8ccf15a1c99",
 		"donate": false,
 		"depth": 120,
 		"immatureDepth": 20,
 		"keepTxFees": false,
 		"interval": "15m",
-		"daemon": "http://127.0.0.1:8884",
+		"daemon": "http://127.0.0.1:8545",
 		"timeout": "10s"
 	},
 
@@ -116,9 +116,9 @@
 		"enabled": false,
 		"requirePeers": 5,
 		"interval": "120m",
-		"daemon": "http://127.0.0.1:8884",
+		"daemon": "http://127.0.0.1:8545",
 		"timeout": "10s",
-		"address": "0xe7e8eda746c3363b146fbe94b4d3082b5478ac3c",
+		"address": "0x3d5158949c0cbc060ac102a0ee0df8ccf15a1c99",
 		"gas": "21000",
 		"gasPrice": "20000000000",
 		"autoGas": true,
@@ -131,13 +131,13 @@
 
 	"exchange": {
 		"enabled": false,
-		"url": "https://api.coinmarketcap.com/v1/ticker/?convert=INR",
+		"url": "https://api.coinmarketcap.com/v1/ticker/?convert=USD",
 		"timeout": "50s",
 		"refreshInterval": "1800s"
 	},
 
 	"newrelicEnabled": false,
-	"newrelicName": "PROXY01_ETC_MUMBAI",
-	"newrelicKey": "b30cd005408cbe2bcef6e081dc0a7ea2fe6c6a18",
+	"newrelicName": "",
+	"newrelicKey": "",
 	"newrelicVerbose": false
 }
