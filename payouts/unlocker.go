@@ -30,11 +30,9 @@ type UnlockerConfig struct {
 
 const minDepth = 16
 const byzantiumHardForkHeight = 5000000
-const constantinopleHardForkHeight = 7280000
 
 var homesteadReward = math.MustParseBig256("4000000000000000000")
 var byzantiumReward = math.MustParseBig256("4000000000000000000")
-var constantinopleReward = math.MustParseBig256("2000000000000000000")
 
 var NewUncleReward = math.MustParseBig256("125000000000000000")
 
@@ -542,9 +540,6 @@ func weiToShannonInt64(wei *big.Rat) int64 {
 }
 
 func getConstReward(height int64) *big.Int {
-	if height >= constantinopleHardForkHeight {
-		return new(big.Int).Set(constantinopleReward)
-	}
 	if height >= byzantiumHardForkHeight {
 		return new(big.Int).Set(byzantiumReward)
 	}
