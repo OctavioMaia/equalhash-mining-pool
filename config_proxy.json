@@ -44,7 +44,7 @@
 		},
 
 		"policy": {
-			"workers": 8,
+			"workers": 20,
 			"resetInterval": "60m",
 			"refreshInterval": "1m",
 
@@ -125,7 +125,7 @@
 		"keepNwFees": true,
 		"nwTxGas": "21000",
 		"nwTxGasPrice": "20000000000",
-		"threshold": 100000000,
+		"threshold": 500000000,
 		"bgsave": false
 	},
 
