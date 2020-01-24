@@ -27,12 +27,12 @@
 		},
 
 		"stratum_ssl": {
-			"enabled": false,
-			"listen": "0.0.0.0:5555",
+			"enabled": true,
+			"listen": "0.0.0.0:443",
 			"timeout": "120s",
 			"maxConn": 8192,
-			"certfile": "etc02.miningpoolindia.org.pem",
-			"certkey": "etc02.miningpoolindia.org.key"
+			"certfile": "/etc/nginx/certs/certificate.pem",
+			"certkey": "/etc/nginx/certs/private.key"
 
 		},
 
