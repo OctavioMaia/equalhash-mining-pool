@@ -60,9 +60,9 @@
 		"purgeInterval": "10m",
 		"listen": "0.0.0.0:9091",
 		"statsCollectInterval": "5s",
-		"hashrateWindow": "30m",
-		"hashrateLargeWindow": "3h",
-		"luckWindow": [64, 128, 256],
+		"hashrateWindow": "1h",
+		"hashrateLargeWindow": "6h",
+		"luckWindow": [25, 50, 100, 200, 400],
 		"payments": 30,
 		"blocks": 50
 	},
