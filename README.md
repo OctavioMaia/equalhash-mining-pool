@@ -5,7 +5,7 @@ Highly Efficient Ethereum Classic mining pool
 
 ### Features
 
-**This pool is reegineered from sammy007 open-ethereum-pool for efficiency and for better payment algorithm. This software is functional and tested and implemented in big Mining farms. Testing and bug submissions are still welcome!
+**This pool is reegineered from sammy007 open-ethereum-pool for efficiency and for better payment algorithm. This software is functional and tested and implemented in big Mining farms. Testing and bug submissions are still welcome!**
 
 *	Support for HTTP, SSL, Stratum, Stratum+SSL mining
 *	Detailed block stats with luck percentage and full reward
@@ -217,8 +217,3 @@ module.exports = function (environment) {
 ### Sample VM Configurations
 
 ![Configuration](https://raw.githubusercontent.com/techievee/ethash-mining-pool/master/images/Configurations.PNG)
-
-
-
-
-
