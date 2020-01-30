@@ -32,7 +32,7 @@ Highly Efficient Ethereum Classic mining pool
 ![Architecture](https://raw.githubusercontent.com/techievee/ethash-mining-pool/master/images/Architecture.PNG)
 
 
-### Building on Linux
+### **Building on Linux**
 
 Dependencies:
 
@@ -47,11 +47,11 @@ Dependencies:
 Start by first installing [parity-ethereum](https://github.com/paritytech/parity-ethereum) and syncing the chain.
 Follow by installing redis-server and the previous dependencies.
 
-### Building Frontend
+### **Building Frontend**
 
 Check the [equalhash-statistics-api](https://github.com/OctavioMaia/equalhash-statistics-api) for frontend tutorial.
 
-### DPPLNS ALGORITHM
+### **DPPLNS ALGORITHM**
 
 The algorithm explanation is as follows
 
@@ -115,105 +115,141 @@ Space : O(N)
 RunTime : O(N)
 
 
-### Configuration Documentation
+### **Configuration Documentation**
 
 Configuration is actually simple, just read it twice and think twice before changing defaults.
 
-```javascript
-module.exports = function (environment) {
-    var ENV = {
-        modulePrefix: 'open-ethereum-pool',
-        environment: environment,
-        rootURL: '/',
-        locationType: 'hash',
-        EmberENV: {
-            FEATURES: {
-                // Here you can enable experimental features on an ember canary build
-                // e.g. 'with-controller': true
-            }
-        },
+The example below is for the ***config_api.json*** file, hence the **false** flags except on the api section.
 
-        APP: {
-            // API host and port
-            ApiUrl: '//equalhash.pt/',
-
-            // HTTP mining endpoint
-            HttpHost: 'equalhash.pt',
-            HttpPort: 40002,
-
-            // Stratum mining endpoint
-            StratumHost: 'equalhash.pt',
-            StratumPort: 9009,
-
-            // Stratum SSL mining endpoint
-            StratumHost1: 'equalhash.pt',
-            StratumPort1: 8008,
-
-            NicehashHost: '',
-            NicehashPost: 40004,
-
-            // Fee and payout details
-            PoolFee: '0.5%',
-            PayoutThreshold: '0.5',
-            ShareDifficulty: '4000000000',
-
-            //Current and Localization
-            Currency: 'USD',
-            CoinName: 'Ethereum Classic',
-            CoinShortName: 'ETC',
-            PaymentText: 'every hour',
-            SupportMail: '',
-            SupportHelpdesk: '',
-            WebsiteName: 'equalhash.pt',
-
-            //Coin Bases Settings
-            ChainAddress : 'https://etcblockexplorer.com/addr/',
-	        TransactionAddress : 'https://minergate.com/blockchain/etc/transaction/',
-            UncleAddress : 'https://minergate.com/blockchain/etc/block/',
-            BlockAddress : 'https://minergate.com/blockchain/etc/block/',
-
-            //Twitter Parameter
-            TwitterURL: '',
-            TwitterHash: '',
-
-
-            // For network hashrate (change for your favourite fork)
-            BlockTime: 14
-        }
-    };
-
-    if (environment === 'development') {
-        /* Override ApiUrl just for development, while you are customizing
-         frontend markup and css theme on your workstation.
-         */
-        ENV.APP.ApiUrl = 'https://etc.daggerpool.com/'
-        // ENV.APP.LOG_RESOLVER = true;
-        // ENV.APP.LOG_ACTIVE_GENERATION = true;
-        // ENV.APP.LOG_TRANSITIONS = true;
-        // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
-        // ENV.APP.LOG_VIEW_LOOKUPS = true;
-    }
-
-    if (environment === 'test') {
-        // Testem prefers this...
-        ENV.locationType = 'none';
-
-        // keep test console output quieter
-        ENV.APP.LOG_ACTIVE_GENERATION = false;
-        ENV.APP.LOG_VIEW_LOOKUPS = false;
-
-        ENV.APP.rootElement = '#ember-testing';
-    }
-
-    if (environment === 'production') {
-        ENV.baseURL = '/ember-cli-twitter-feed/';
-    }
-
-    ENV.contentSecurityPolicy = {};
-    return ENV;
-};
+```json
+{ 
+   "threads": 2,
+   "coin": "etc-pplns",
+   "name": "main",
+   "pplns": 15000,
+   "coin-name": "ETC",
+   "proxy": { 
+      "enabled": false,
+      "listen": "0.0.0.0:9999",
+      "limitHeadersSize": 1024,
+      "limitBodySize": 256,
+      "behindReverseProxy": false,
+      "blockRefreshInterval": "120ms",
+      "stateUpdateInterval": "3s",
+      "difficulty": 4000000000,
+      "hashrateExpiration": "3h",
+      "healthCheck": true,
+      "maxFails": 100,
+      "stratum": { 
+         "enabled": false,
+         "listen": "0.0.0.0:9009",
+         "timeout": "120s",
+         "maxConn": 8192
+      },
+      "stratum_nice_hash": { 
+         "enabled": false,
+         "listen": "0.0.0.0:9099",
+         "timeout": "120s",
+         "maxConn": 8192
+      },
+      "policy": { 
+         "workers": 20,
+         "resetInterval": "60m",
+         "refreshInterval": "1m",
+         "banning": { 
+            "enabled": false,
+            "ipset": "blacklist",
+            "timeout": 300,
+            "invalidPercent": 30,
+            "checkThreshold": 30,
+            "malformedLimit": 50
+         },
+         "limits": { 
+            "enabled": false,
+            "limit": 30,
+            "grace": "5m",
+            "limitJump": 10
+         }
+      }
+   },
+   "api": { 
+      "enabled": true,
+      "purgeOnly": false,
+      "purgeInterval": "10m",
+      "listen": "0.0.0.0:9091",
+      "statsCollectInterval": "5s",
+      "hashrateWindow": "1h",
+      "hashrateLargeWindow": "6h",
+      "luckWindow": [ 
+         25,
+         50,
+         100,
+         200,
+         400
+      ],
+      "payments": 30,
+      "blocks": 50
+   },
+   "upstreamCheckInterval": "5s",
+   "upstream": [ 
+      { 
+         "name": "main",
+         "url": "http://127.0.0.1:8545",
+         "timeout": "10s"
+      },
+      { 
+         "name": "backup",
+         "url": "http://127.0.0.2:8545",
+         "timeout": "10s"
+      }
+   ],
+   "redis": { 
+      "endpoint": "127.0.0.1:6379",
+      "poolSize": 300,
+      "database": 9,
+      "password": ""
+   },
+   "unlocker": { 
+      "enabled": false,
+      "poolFee": 0.5,
+      "poolFeeAddress": "0x3d5158949c0cbc060ac102a0ee0df8ccf15a1c99",
+      "donate": false,
+      "depth": 120,
+      "immatureDepth": 20,
+      "keepTxFees": false,
+      "interval": "15m",
+      "daemon": "http://127.0.0.1:8545",
+      "timeout": "10s"
+   },
+   "payouts": { 
+      "enabled": false,
+      "requirePeers": 5,
+      "interval": "60m",
+      "daemon": "http://127.0.0.1:8545",
+      "timeout": "10s",
+      "address": "0x3d5158949c0cbc060ac102a0ee0df8ccf15a1c99",
+      "gas": "21000",
+      "gasPrice": "20000000000",
+      "autoGas": true,
+      "keepNwFees": true,
+      "nwTxGas": "21000",
+      "nwTxGasPrice": "20000000000",
+      "threshold": 500000000,
+      "bgsave": false
+   },
+   "exchange": { 
+      "enabled": true,
+      "url": "https://api.coinmarketcap.com/v1/ticker/ethereum-classic/?convert=USD",
+      "timeout": "50s",
+      "refreshInterval": "1800s"
+   },
+   "newrelicEnabled": false,
+   "newrelicName": "",
+   "newrelicKey": "",
+   "newrelicVerbose": false
+}
 ```
 
-### Sample VM Configurations
+### **Sample VM Configurations**
 
 ![Configuration](https://raw.githubusercontent.com/techievee/ethash-mining-pool/master/images/Configurations.PNG)
